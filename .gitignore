@@ -1,0 +1,6 @@
+.DS_Store
+data/
+forecasts/
+figures/
+*tar.gz
+
