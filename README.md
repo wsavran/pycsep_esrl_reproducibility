@@ -18,9 +18,9 @@ Descriptions of the files in the ```scripts``` folder are below:
 * `plot_all.py`: generates all figures listed above
 
 ### Software versions
-`python=3.7.3` 
-`pycsep=0.5.1` 
-`Docker`  
+`python=3.7.3`  
+`pycsep=0.5.1`  
+`Docker`   
 
 ## Software dependencies
 
