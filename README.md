@@ -7,6 +7,7 @@ The code to execute the main experiment can be found in the ```scripts``` direct
 according to the figure they create in the manuscript. The script ```plot_all.py``` will generate all of the figures.
 Descriptions of the files in the ```scripts``` folder are below:
 
+* `plot_all.py`: generates all figures listed below
 * `plot_figure2.py`: plots RELM and Italian time-independent forecasts with the catalog used to evaluate the forecasts
 * `plot_figure3.py`: plots selected catalogs from UCERF3-ETAS forecast
 * `plot_figure4.py`: plots S-test and N-test evaluations for RELM and Italian time-independent forecasts
@@ -15,7 +16,6 @@ Descriptions of the files in the ```scripts``` folder are below:
 * `plot_figure7.py`: illustrates plotting capabilities and manipulation of gridded forecasts 
 * `experiment_utilities.py`: functions and configuration needed to run the above scripts
 * `download_data.py`: downloads data from Zenodo (doi: 10.5281/zenodo.5748242)
-* `plot_all.py`: generates all figures listed above
 
 ### Software versions
 `python=3.7.3`  
