@@ -18,9 +18,9 @@ Descriptions of the files in the ```scripts``` folder are below:
 * plot_all.py: generates all figures listed above
 
 ### Software versions
-python=3.7.3
-pycsep=0.5.1
-Docker
+python=3.7.3  
+pycsep=0.5.1  
+Docker  
 
 ## Software dependencies
 
@@ -57,9 +57,11 @@ python scripts/plot_all.py
 ```
 
 Note: Individual scripts can be run by replacing the script name above with the name of the script you would like to run (e.g.,
-scripts/plot_all.py with scripts/plot_figure2.py). The Docker environment introduces considerable I/O issues when running on
+scripts/plot_all.py with scripts/plot_figure2.py). 
+
+The Docker environment introduces considerable I/O issues when running on
 Windows or MacOS. If you are interested in working with these scripts in more detail, we recommend that you install v0.5.1 of
-pyCSEP in a `conda` environment on your personal computer or workstation. Installation instructions can be found on the [pyCSEP
+pyCSEP in a `conda` environment on your personal computer or workstation. Installation instructions can be found in the [pyCSEP
 documentation](https://docs.cseptesting.org/getting_started/installing.html).
 
 
