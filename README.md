@@ -36,7 +36,7 @@ envrironment to recreate the figures from the manuscript will be provided by the
 
 Once you have downloaded the reproducibility package from GitHub using 
 ```
-git clone 
+git clone git@github.com:wsavran/pycsep_esrl_reproducibility.git
 ```
 
 Navigate to the newly downloaded directory
