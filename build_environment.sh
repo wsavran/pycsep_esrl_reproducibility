@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-record_id=5717419
+record_id=5748242
 
 echo 'Downloading data from Zenodo'
 echo '============================'
