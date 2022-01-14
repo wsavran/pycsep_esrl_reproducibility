@@ -13,7 +13,7 @@ from csep.utils.plots import add_labels_for_publication
 from experiment_utilities import california_experiment, italy_experiment
 
 def main():
-	
+
     fig = plt.figure(figsize=(18,10))
     ax1 = fig.add_subplot(121, projection=ccrs.Mercator())
     ax2 = fig.add_subplot(122, projection=ccrs.Mercator())
@@ -112,8 +112,7 @@ def main():
     ax2 = ita_cat.plot(ax=ax2, plot_args=args_dict)
     ax2.set_title('')
     add_labels_for_publication(fig)
-    fig.savefig('./figures/figure2.png', dpi=300)
-    plt.show()
+    fig.savefig('../figures/figure2.png', dpi=300)
 
 
 if __name__ == "__main__":
