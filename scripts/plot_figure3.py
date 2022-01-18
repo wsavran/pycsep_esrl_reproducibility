@@ -31,8 +31,8 @@ from experiment_utilities import california_experiment, italy_experiment
 def main():
 
     # file-path for results
-    simulation_dir = './forecasts/ucerf3_forecast'
-    ucerf3_raw_data = os.path.join(simulation_dir, 'results_complete.bin')
+    simulation_dir = '../forecasts'
+    ucerf3_raw_data = os.path.join(simulation_dir, 'results_complete.bin.gz')
     ucerf3_config = os.path.join(simulation_dir, 'config.json')
     m71_event = os.path.join(simulation_dir, 'm71_event.json')
 
@@ -76,10 +76,10 @@ def main():
         apply_filters=True
     )
 
-	# plot forecast; will add catalog to plot, calling first because u3etas is a generator and not subscriptable
+    # plot forecast; will add catalog to plot, calling first because u3etas is a generator and not subscriptable
     _ = u3etas_forecast.get_expected_rates(verbose=True)
 
-	# determine catalogs with percentile counts
+    # determine catalogs with percentile counts
     ecs = u3etas_forecast.get_event_counts()
     catalogs = []
     for p in perc:
@@ -87,7 +87,7 @@ def main():
         idx = int(np.argwhere(ecs == ec)[0])
         catalogs.append(u3etas_forecast.catalogs[idx])
 
-	# plotting goes here
+    # plotting goes here
     fig = plt.figure(figsize=(18,10))
     axs = []
     for i in range(len(catalogs)):
@@ -103,7 +103,6 @@ def main():
         'frameon': True,
         'grid_labels': True,
         'grid_fontsize': 14,
-        'cmap': 'viridis',
         'mag_ticks': [4.0, 5.0, 6.0, 7.0],
         'mag_scale': 6,
         'markercolor': 'red',
@@ -117,7 +116,7 @@ def main():
         h = u3etas_forecast.expected_rates.plot(plot_args=args_dict, ax=ax)
         h = plot_catalog(cat, plot_args=args_dict, ax=h)
     add_labels_for_publication(fig)
-    ax.get_figure().savefig('./figures/figure3.png', dpi=300)
+    ax.get_figure().savefig('../figures/figure3.png', dpi=300)
 
 if __name__ == "__main__":
- 	main()
+    main()

@@ -129,12 +129,12 @@ def load_italian_catalog(fname):
 california_experiment = EvaluationConfig()
 california_experiment.start_time = strptime_to_utc_datetime('2006-01-01 00:00:00.0')
 california_experiment.end_time = strptime_to_utc_datetime('2011-01-01 00:00:00.0')
-california_experiment.evaluation_catalog = './data/evaluation_catalog_zechar2013_merge.txt'
+california_experiment.evaluation_catalog = '../data/evaluation_catalog_zechar2013_merge.txt'
 california_experiment.catalog_loader = load_california_catalog
 california_experiment.forecasts = {
-    'helmstetter': './forecasts/helmstetter_et_al.hkj.aftershock-fromXML.dat',
-    'bird_liu': './forecasts/bird_liu.neokinema-fromXML.dat',
-    'ebel': './forecasts/ebel.aftershock.corrected-fromXML.dat'
+    'helmstetter': '../forecasts/helmstetter_et_al.hkj.aftershock-fromXML.dat',
+    'bird_liu': '../forecasts/bird_liu.neokinema-fromXML.dat',
+    'ebel': '../forecasts/ebel.aftershock.corrected-fromXML.dat'
 }
 california_experiment.seed = 123456
 california_experiment.t_test_benchmark = 'helmstetter'
@@ -143,12 +143,12 @@ california_experiment.t_test_benchmark = 'helmstetter'
 italy_experiment = EvaluationConfig()
 italy_experiment.start_time = strptime_to_utc_datetime('2010-01-01 00:00:00.0')
 italy_experiment.end_time = strptime_to_utc_datetime('2015-01-01 00:00:00.0')
-italy_experiment.evaluation_catalog = './data/SRL_2018031_esupp_Table_S1.txt'
+italy_experiment.evaluation_catalog = '../data/SRL_2018031_esupp_Table_S1.txt'
 italy_experiment.catalog_loader = load_italian_catalog
 italy_experiment.forecasts = {
-    'lombardi': './forecasts/lombardi.DBM.italy.5yr.2010-01-01.dat',
-    'meletti': './forecasts/meletti.MPS04.italy.5yr.2010-01-01.dat',
-    'werner-m1': './forecasts/werner.HiResSmoSeis-m1.italy.5yr.2010-01-01.dat'
+    'lombardi': '../forecasts/lombardi.DBM.italy.5yr.2010-01-01.dat',
+    'meletti': '../forecasts/meletti.MPS04.italy.5yr.2010-01-01.dat',
+    'werner-m1': '../forecasts/werner.HiResSmoSeis-m1.italy.5yr.2010-01-01.dat'
 }
 italy_experiment.seed = 123456
 italy_experiment.t_test_benchmark = 'meletti'
