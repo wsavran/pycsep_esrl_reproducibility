@@ -10,8 +10,8 @@ from experiment_utilities import italy_experiment
 from csep import load_catalog, load_gridded_forecast
 from csep.utils.plots import plot_basemap, plot_catalog, plot_spatial_dataset, add_labels_for_publication
 
-def main():
 
+def main():
 
     def initalize_forecasts(config, **kwargs):
         """ Initialize forecast using experiment configuration """
@@ -46,10 +46,8 @@ def main():
 
     # Post-process the forecasts into a desired value.
     # Here, we want to see the ratio between two forecasts within a given magnitude range
-    discrete_rate_werner = ita_fores['werner-m1'].data[:, mw_ind]   # Get the rates per magnitude bin within the range
     rate_werner = np.sum(ita_fores['werner-m1'].data[:, mw_ind], axis=1)  # Get the cumulative rate in such range
 
-    discrete_rate_meletti = ita_fores['meletti'].data[:, mw_ind]
     rate_meletti = np.sum(ita_fores['meletti'].data[:, mw_ind], axis=1)
 
     rate_diff = np.log10(rate_meletti/rate_werner)     # Get the fraction between both forecasts
@@ -59,13 +57,11 @@ def main():
     ita_cat = load_catalog(italy_experiment.evaluation_catalog, loader=italy_experiment.catalog_loader)
     # Filter by the magnitude range
     ita_cat.filter([f'magnitude >= {low_bound}',f'magnitude <= {upper_bound}'])
-    cat_mags = ita_cat.get_magnitudes()
 
     basemap = 'stamen_terrain-background'
 
     # Create an 'ax' object containing the basemap
     fig = plt.figure(figsize=(18,10))
-    axs = []
     for idx in range(3):
         ax = fig.add_subplot(1, 3, idx+1, projection=ccrs.Mercator())
 
@@ -125,6 +121,7 @@ def main():
     fig.subplots_adjust(hspace=0.5)
     add_labels_for_publication(fig)
     fig.savefig('../figures/figure7.png', dpi=300)
+
 
 if __name__ == "__main__":
     main()

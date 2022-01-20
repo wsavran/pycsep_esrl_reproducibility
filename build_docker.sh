@@ -2,6 +2,6 @@
 
 echo ''
 echo 'Building Docker image'
-echo '========================='
+echo '====================='
 docker build -t pycsep_esrl .
 

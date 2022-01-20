@@ -1,33 +1,28 @@
 # Python imports
 import os
 import json
-import time
 
 # 3rd party impoorts
 import numpy as np
-import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
 # pycsep imports
-from csep import load_catalog_forecast, load_catalog, load_json, load_evaluation_result
-from csep.models import Event, Polygon
+from csep import load_catalog_forecast, load_json
+from csep.models import Event
 from csep.core.regions import (
-    generate_aftershock_region,
-    california_relm_region,
-    masked_region,
     magnitude_bins,
     create_space_magnitude_region
 )
 from csep.core.catalogs import CSEPCatalog
-from csep.core.forecasts import GriddedDataSet
 from csep.core.catalog_evaluations import spatial_test, number_test
 from csep.utils.constants import SECONDS_PER_WEEK
-from csep.utils.plots import plot_spatial_dataset, plot_number_test, plot_spatial_test, plot_catalog
-from csep.utils.scaling_relationships import WellsAndCoppersmith
+from csep.utils.plots import plot_number_test, plot_spatial_test, plot_catalog
 from csep.utils.time_utils import epoch_time_to_utc_datetime, datetime_to_utc_epoch
+
 
 def sort_by_longitude(coords):
     return coords[coords[:,0].argsort()]
+
 
 def main():
 
@@ -60,12 +55,7 @@ def main():
     event = load_json(Event(), m71_event)
     event_epoch = datetime_to_utc_epoch(event.time)
 
-    # define aftershock region and magnitude region
-    rupture_length = WellsAndCoppersmith.mag_length_strike_slip(event.magnitude) * 1000
-    aftershock_polygon = Polygon.from_great_circle_radius((event.longitude, event.latitude), num_radii*rupture_length, num_points=100)
-
-    # region from scratch using pycsep
-    aftershock_region = masked_region(california_relm_region(dh_scale=4, use_midpoint=False), aftershock_polygon)
+    # define region and magnitude space
     mw_bins = magnitude_bins(min_mw, max_mw, dmw)
     smr = create_space_magnitude_region(catalog.region, mw_bins)
 
@@ -145,6 +135,6 @@ def main():
     ax = plot_catalog(catalog, plot_args=plot_args, ax=ax)
     ax.get_figure().savefig('../figures/figure5a.png', dpi=300)
 
+
 if __name__ == "__main__":
     main()
-

@@ -1,4 +1,8 @@
 #! /bin/bash
+
+echo ''
+echo 'Launching Docker container'
+echo '=========================='
 docker run -it --rm \
 --mount type=bind,source="$(pwd)"/figures,target=/app/figures \
 --mount type=bind,source="$(pwd)"/data,target=/app/data,readonly \

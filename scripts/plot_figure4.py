@@ -1,10 +1,6 @@
-# Python imports
-import time
-
 # 3rd party impoorts
 import numpy as np
 import matplotlib.pyplot as plt
-import cartopy.crs as ccrs
 
 # pycsep imports
 from csep import load_gridded_forecast, load_catalog
@@ -13,6 +9,7 @@ from csep.utils.plots import plot_poisson_consistency_test, add_labels_for_publi
 
 # local imports
 from experiment_utilities import california_experiment, italy_experiment
+
 
 def main():
 
@@ -55,7 +52,6 @@ def main():
         print(f'Computing S-test results...')
         italy_results.append(poisson.spatial_test(fore, cat, seed=seed, num_simulations=100000))
 
-
     # plotting code below
     fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12,5))
     args = {'title_fontsize': 18,
@@ -80,6 +76,7 @@ def main():
     for res in italy_results:
         print(f'{res.sim_name}: {res.quantile}')
     fig.savefig('../figures/figure4.png', dpi=300)
+
 
 if __name__ == "__main__":
     main()

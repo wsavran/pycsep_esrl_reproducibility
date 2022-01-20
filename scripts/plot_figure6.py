@@ -1,10 +1,5 @@
-# Python imports
-import time
-
 # 3rd party impoorts
-import numpy as np
 import matplotlib.pyplot as plt
-import cartopy.crs as ccrs
 
 # pycsep imports
 from csep import load_gridded_forecast, load_catalog
@@ -27,6 +22,7 @@ def initalize_forecasts(config, **kwargs):
         out[name] = fore
     return out
 
+
 def main():
 
     # evaluate california_experiment using helmstetter as benchmark
@@ -43,7 +39,7 @@ def main():
     benchmark = ca_fores.pop(california_experiment.t_test_benchmark)
 
     print(f'Computing t-test results...')
-    for name, fore in ca_fores.items():
+    for _, fore in ca_fores.items():
         fore.name = fore.name.upper()
         california_t_results.append(poisson.paired_t_test(fore, benchmark, cat))
         california_w_results.append(poisson.w_test(fore, benchmark, cat))
@@ -65,7 +61,7 @@ def main():
     print(cat)
 
     print(f'Computing t-test results...')
-    for name, fore in ita_fores.items():
+    for _, fore in ita_fores.items():
         fore.name = fore.name.upper()
         italy_t_results.append(poisson.paired_t_test(fore, benchmark, cat))
         italy_w_results.append(poisson.w_test(fore, benchmark, cat))
@@ -94,7 +90,6 @@ def main():
     fig.tight_layout()
     fig.savefig('../figures/figure6.png', dpi=300)
 
+
 if __name__ == "__main__":
     main()
-
-
