@@ -35,8 +35,8 @@ can be found [here](https://docs.docker.com/engine/install).
 
 > Note: For best performance on Windows 10/11, Docker should be used with the WSL2 backend instead
 of the legacy Hyper-V backend---provided your hardware supports it. This can be configured in
-Docker's Settings > General > 'Use the WSL 2 based engine'. To enable the WSL2 feature on your
-Windows 10/11, follow https://docs.docker.com/desktop/windows/wsl.
+Docker's Settings > General > 'Use the WSL 2 based engine'. For more information and how to enable the WSL2 feature
+on your Windows 10/11, see [Docker Desktop WSL 2 backend](https://docs.docker.com/desktop/windows/wsl).
 
 The following commands will not work unless the Docker engine
 is correctly installed on your machine.
