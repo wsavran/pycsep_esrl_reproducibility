@@ -1,12 +1,14 @@
 # Reproducing pyCSEP: A Software Toolkit for Earthquake Forecast Developers
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5777992.svg)](https://doi.org/10.5281/zenodo.5777992)
+
 A reproducibility package contains the code and data products needed to recreate the figures from a published article (Krafczyk
 et al., 2021). This reproducibility package is meant to provide an introduction to pyCSEP and act as an example on how to create
 similar reproducibility packages for future publications. We refer readers interested in creating their own reproducibility packages to
 Krafczyk et al. (2021).
 
-We provide the user with options to download a _'full'_ or _'lightweight'_ version of the reproducibility package. The _'full'_
-version of the reproducibility package will recreate Figs. 2‒7 from the manuscript. The _'lightweight'_ version omits
+We provide the user with options to download a _'full'_ or _'lightweight'_ version of the reproducibility package from Zenodo (see DOI link at the top).
+The _'full'_ version of the reproducibility package will recreate Figs. 2‒7 from the manuscript. The _'lightweight'_ version omits
 Fig. 3 and Fig. 5 because they require a ~24Gb download for the UCERF3-ETAS forecast, which can take a while (~3h) depending on
 the connection to Zenodo. Additionally, these figures require the longest time to create (see [Computational effort](#computational-effort)).
 
@@ -21,8 +23,9 @@ Table of contents
    * [Prepare the computational environment](#prepare-the-computational-environment)
       * [Easy-mode using Docker](#easy-mode-using-docker)
       * [Using conda environment](#using-conda-environment)
-   * [Run main script to create all figures](#run-main-script-to-create-all-figures)
-   * [Generate individual figures](#generate-individual-figures)
+   * [Run the computational environment](#run-the-computational-environment)
+      * [Create all figures](#create-all-figures)
+      * [Generate individual figures](#generate-individual-figures)
 * [Code description](#code-description)
 * [Software versions](#software-versions)
 * [Computational effort](#computational-effort)
@@ -53,7 +56,7 @@ we recommend that you install pyCSEP (v0.5.1) in a `conda` environment in the na
 
 For both options we have accompanying scripts that work both under Linux/macOS or Windows.
 
-#### Easy-mode using Docker
+#### Easy mode using Docker
 
 You will need to have the Docker runtime environment installed and running on your machine. Some instructions
 can be found [here](https://docs.docker.com/engine/install/). The following commands will not work unless the Docker engine
@@ -79,7 +82,7 @@ Continue with [Run the computational environment](#run-the-computational-environ
 
 Installation instructions can be found in the [pyCSEP documentation](https://docs.cseptesting.org/getting_started/installing.html).
 
-Create and activate conda environment
+Create and activate a new conda environment
 ```
 conda env create -n pycsep_v051
 conda activate pycsep_v051
@@ -90,7 +93,7 @@ Install v0.5.1 of pyCSEP
 conda install --channel conda-forge pycsep=0.5.1
 ```
 
-Download data of the _'lightweight'_ version from Zenodo
+Download data of the _'lightweight'_ version from Zenodo with
 ```
 ./download_data.sh
 ```
@@ -107,12 +110,11 @@ The scripts to reproduce the figures in the manuscript are contained in the `scr
 cd scripts
 ```
 
-> Note: Any script must be launched from the `scripts` directory of the
-reproducibility package.
+> Note: Any script must be launched from the `scripts` directory of the reproducibility package.
 
-#### Run main script to create all figures
+#### Create all figures
 
-To produce all figures from the manuscript, run the following command:
+To produce all figures from the manuscript that are supported by your downloaded version (_'lightweight'_ or _'full'_), run:
 ```
 python scripts/plot_all.py
 ```
@@ -153,7 +155,7 @@ Descriptions of the files in the `scripts` directory are as follows:
 * `plot_figure6.py`: plots t-test and W-test evaluations for RELM and Italian time-independent forecasts
 * `plot_figure7.py`: illustrates plotting capabilities and manipulation of gridded forecasts
 * `experiment_utilities.py`: functions and configuration needed to run the above scripts
-* `download_data.py`: downloads data from Zenodo (doi: 10.5281/zenodo.5748242)
+* `download_data.py`: downloads data from Zenodo (see DOI link at the top)
 
 ## Software versions
 
@@ -177,6 +179,5 @@ For optimal performance, we recommend to [use the conda environment](#using-cond
 
 Krafczyk, M. S., Shi, A., Bhaskar, A., Marinov, D., and Stodden, V. (2021).
 Learning from reproducing computational results: introducing three principles and the reproduction package.
-_Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 379_(2197). doi: [10.1098/rsta.2020.0069](https://doi.org/10.1098/rsta.2020.0069)
-
-
+_Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 379_(2197).
+doi: [10.1098/rsta.2020.0069](https://doi.org/10.1098/rsta.2020.0069)
