@@ -56,11 +56,17 @@ def main():
     event_epoch = datetime_to_utc_epoch(event.time)
 
     # define region and magnitude space
+    rupture_length = WellsAndCoppersmith.mag_length_strike_slip(event.magnitude) * 1000
+    aftershock_polygon = Polygon.from_great_circle_radius((event.longitude, event.latitude), num_radii*rupture_length, num_points=100)
+
+    # region from scratch using pycsep
+    aftershock_region = masked_region(california_relm_region(dh_scale=4, use_midpoint=False), aftershock_polygon)
+
     mw_bins = magnitude_bins(min_mw, max_mw, dmw)
     smr = create_space_magnitude_region(catalog.region, mw_bins)
 
     # some checks to show that we obtain the same region
-    assert smr == catalog.region
+    assert aftershock_region == catalog.region
 
     # create forecast object
     filters = [
