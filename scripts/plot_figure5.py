@@ -6,17 +6,22 @@ import json
 import numpy as np
 import cartopy.crs as ccrs
 
+import matplotlib.pyplot as plt
+
 # pycsep imports
 from csep import load_catalog_forecast, load_json
 from csep.models import Event, Polygon
 from csep.core.regions import (
     magnitude_bins,
-    create_space_magnitude_region
+    create_space_magnitude_region,
+    california_relm_region,
+    masked_region
 )
 from csep.core.catalogs import CSEPCatalog
 from csep.core.catalog_evaluations import spatial_test, number_test
 from csep.utils.constants import SECONDS_PER_WEEK
 from csep.utils.plots import plot_number_test, plot_spatial_test, plot_catalog
+from csep.utils.scaling_relationships import WellsAndCoppersmith
 from csep.utils.time_utils import epoch_time_to_utc_datetime, datetime_to_utc_epoch
 
 
@@ -58,15 +63,10 @@ def main():
     # define region and magnitude space
     rupture_length = WellsAndCoppersmith.mag_length_strike_slip(event.magnitude) * 1000
     aftershock_polygon = Polygon.from_great_circle_radius((event.longitude, event.latitude), num_radii*rupture_length, num_points=100)
-
-    # region from scratch using pycsep
     aftershock_region = masked_region(california_relm_region(dh_scale=4, use_midpoint=False), aftershock_polygon)
 
     mw_bins = magnitude_bins(min_mw, max_mw, dmw)
-    smr = create_space_magnitude_region(catalog.region, mw_bins)
-
-    # some checks to show that we obtain the same region
-    assert aftershock_region == catalog.region
+    smr = create_space_magnitude_region(aftershock_region, mw_bins)
 
     # create forecast object
     filters = [

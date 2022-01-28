@@ -74,6 +74,7 @@
 """
 
 import os
+import time
 
 import plot_figure2
 import plot_figure3
@@ -176,4 +177,7 @@ def main(version):
 
 if __name__ == "__main__":
     ver = verify_file_manifest()
+    t0 = time.time()
     main(ver)
+    t1 = time.time()
+    print(f'Computed results in {t1 - t0:.3f} seconds.')
