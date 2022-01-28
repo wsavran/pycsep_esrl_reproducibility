@@ -8,7 +8,7 @@ import cartopy.crs as ccrs
 
 # pycsep imports
 from csep import load_catalog_forecast, load_json
-from csep.models import Event
+from csep.models import Event, Polygon
 from csep.core.regions import (
     magnitude_bins,
     create_space_magnitude_region
