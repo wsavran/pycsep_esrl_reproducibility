@@ -1,33 +1,28 @@
 # Python imports
 import os
 import json
-import time
 
 # 3rd party impoorts
 import numpy as np
-import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
 # pycsep imports
-from csep import load_catalog_forecast, load_catalog, load_json
+from csep import load_catalog_forecast, load_json
 from csep.models import Event, Polygon
 from csep.core.regions import (
-    generate_aftershock_region,
-    california_relm_region,
-    masked_region,
     magnitude_bins,
     create_space_magnitude_region
 )
 from csep.core.catalogs import CSEPCatalog
-from csep.core.forecasts import GriddedDataSet
 from csep.core.catalog_evaluations import spatial_test, number_test
 from csep.utils.constants import SECONDS_PER_WEEK
-from csep.utils.plots import plot_spatial_dataset, plot_number_test, plot_spatial_test, plot_catalog
-from csep.utils.scaling_relationships import WellsAndCoppersmith
+from csep.utils.plots import plot_number_test, plot_spatial_test, plot_catalog
 from csep.utils.time_utils import epoch_time_to_utc_datetime, datetime_to_utc_epoch
+
 
 def sort_by_longitude(coords):
     return coords[coords[:,0].argsort()]
+
 
 def main():
 
@@ -60,17 +55,18 @@ def main():
     event = load_json(Event(), m71_event)
     event_epoch = datetime_to_utc_epoch(event.time)
 
-    # define aftershock region and magnitude region
+    # define region and magnitude space
     rupture_length = WellsAndCoppersmith.mag_length_strike_slip(event.magnitude) * 1000
     aftershock_polygon = Polygon.from_great_circle_radius((event.longitude, event.latitude), num_radii*rupture_length, num_points=100)
 
     # region from scratch using pycsep
     aftershock_region = masked_region(california_relm_region(dh_scale=4, use_midpoint=False), aftershock_polygon)
+
     mw_bins = magnitude_bins(min_mw, max_mw, dmw)
     smr = create_space_magnitude_region(catalog.region, mw_bins)
 
     # some checks to show that we obtain the same region
-    assert smr == catalog.region
+    assert aftershock_region == catalog.region
 
     # create forecast object
     filters = [
@@ -152,6 +148,6 @@ def main():
     with open(f'../results/u3etas_{n_test.name}.json'.replace(" ","_").lower(), 'w') as wf:
         json.dump(n_test.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True, default=str)
 
+
 if __name__ == "__main__":
     main()
-

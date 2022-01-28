@@ -1,10 +1,7 @@
 from datetime import datetime
 
 import numpy as np
-import matplotlib.pyplot as plt
-import cartopy.crs as ccrs
 
-from csep import load_gridded_forecast, load_catalog
 from csep.utils.time_utils import (
     strptime_to_utc_datetime,
     strptime_to_utc_epoch,
@@ -88,7 +85,7 @@ def load_italian_catalog(fname):
         Second = 7
         Magnitude = 8
         Depth = 9
-        
+
     def parse_datetime(line):
         year = int(line[ColumnIndex.DecimalYear])
         month = int(line[ColumnIndex.Month])
@@ -108,7 +105,7 @@ def load_italian_catalog(fname):
             microseconds
         )
         return dt
-    
+
     # arrange file into list of tuples
     out = []
     catalog_data = np.loadtxt(fname)
@@ -125,7 +122,7 @@ def load_italian_catalog(fname):
         out.append(event_tuple)
     return out
 
-# configuration for california testing regions 
+# configuration for california testing regions
 california_experiment = EvaluationConfig()
 california_experiment.start_time = strptime_to_utc_datetime('2006-01-01 00:00:00.0')
 california_experiment.end_time = strptime_to_utc_datetime('2011-01-01 00:00:00.0')

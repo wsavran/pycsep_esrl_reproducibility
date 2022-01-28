@@ -5,7 +5,6 @@ import json
 # 3rd party impoorts
 import numpy as np
 import matplotlib.pyplot as plt
-import cartopy.crs as ccrs
 
 # pycsep imports
 from csep import load_gridded_forecast, load_catalog
@@ -15,6 +14,7 @@ from csep.core.repositories import FileSystem
 
 # local imports
 from experiment_utilities import california_experiment, italy_experiment
+
 
 def main():
 
@@ -92,7 +92,7 @@ def main():
         fname = f'../results/italy_{res.sim_name}_{res.name}.json'.replace(' ','_').lower()
         with open(fname, 'w') as wf:
             json.dump(res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True, default=str)
-        
 
+            
 if __name__ == "__main__":
     main()

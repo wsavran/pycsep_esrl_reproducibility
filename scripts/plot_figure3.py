@@ -1,7 +1,6 @@
 # Python imports
 import os
 import json
-import time
 
 # 3rd party impoorts
 import numpy as np
@@ -9,24 +8,20 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
 # pycsep imports
-from csep import load_catalog_forecast, load_catalog, load_json
+from csep import load_catalog_forecast, load_json
 from csep.models import Event
 from csep.core.regions import (
     Polygon,
-    generate_aftershock_region,
     california_relm_region,
     masked_region,
     magnitude_bins,
     create_space_magnitude_region
 )
-from csep.core.forecasts import GriddedDataSet
 from csep.utils.constants import SECONDS_PER_WEEK
-from csep.utils.plots import plot_spatial_dataset, plot_catalog, add_labels_for_publication
+from csep.utils.plots import plot_catalog, add_labels_for_publication
 from csep.utils.scaling_relationships import WellsAndCoppersmith
 from csep.utils.time_utils import epoch_time_to_utc_datetime
 
-# local imports
-from experiment_utilities import california_experiment, italy_experiment
 
 def main():
 
@@ -51,14 +46,15 @@ def main():
     end_epoch = start_epoch + SECONDS_PER_WEEK * 1000
 
     # number of fault radii to use for spatial filtering
-    num_radii = 3 
+    num_radii = 3
 
     # load event
     event = load_json(Event(), m71_event)
 
     # define aftershock region and magnitude region
     rupture_length = WellsAndCoppersmith.mag_length_strike_slip(event.magnitude) * 1000
-    aftershock_polygon = Polygon.from_great_circle_radius((event.longitude, event.latitude), num_radii*rupture_length, num_points=100)
+    aftershock_polygon = Polygon.from_great_circle_radius((event.longitude, event.latitude),
+                                                          num_radii*rupture_length, num_points=100)
     aftershock_region = masked_region(california_relm_region(dh_scale=4), aftershock_polygon)
     mw_bins = magnitude_bins(min_mw, max_mw, dmw)
     smr = create_space_magnitude_region(aftershock_region, mw_bins)
@@ -117,6 +113,7 @@ def main():
         h = plot_catalog(cat, plot_args=args_dict, ax=h)
     add_labels_for_publication(fig)
     ax.get_figure().savefig('../figures/figure3.png', dpi=300)
+
 
 if __name__ == "__main__":
     main()

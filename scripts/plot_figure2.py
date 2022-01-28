@@ -1,7 +1,6 @@
 import time
 
 # 3rd party impoorts
-import numpy as np
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
@@ -11,6 +10,7 @@ from csep.utils.plots import add_labels_for_publication
 
 # local imports
 from experiment_utilities import california_experiment, italy_experiment
+
 
 def main():
 

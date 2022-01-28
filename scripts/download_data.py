@@ -1,9 +1,9 @@
 import os
 import sys
-import shutil
 import requests
 import hashlib
 import argparse
+
 
 def check_hash(filename, checksum):
     algorithm, value = checksum.split(':')
@@ -18,6 +18,7 @@ def check_hash(filename, checksum):
             h.update(data)
     digest = h.hexdigest()
     return value, digest
+
 
 def download_file(url, filename):
     progress_bar_length = 72
@@ -61,7 +62,7 @@ def main():
             'config.json',
             'm71_event.json',
             'results_complete.bin.gz'
-        ], 
+        ],
         'light': [
             'evaluation_catalog_zechar2013_merge.txt',
             'SRL_2018031_esupp_Table_S1.txt',
@@ -72,7 +73,7 @@ def main():
             'meletti.MPS04.italy.5yr.2010-01-01.dat',
             'werner.HiResSmoSeis-m1.italy.5yr.2010-01-01.dat'
         ]
-    }   
+    }
 
     dir_map = {
         'evaluation_catalog.json': './data',
@@ -88,13 +89,14 @@ def main():
         'm71_event.json': './forecasts',
         'results_complete.bin.gz': './forecasts'
     }
-    
+
     # parse command line arguments
     parser = argparse.ArgumentParser(
         description="Download data for pyCSEP: A Software Toolkit for Earthquake Forecast Developers"
     )
     parser.add_argument("record_id", help="record id associated with zenodo data")
-    parser.add_argument("--full", help="download full version of reproducibility package. default: false", action='store_true')
+    parser.add_argument("--full", help="download full version of reproducibility package. default: false",
+                        action='store_true')
     args = parser.parse_args()
 
     # This can be found in the DOI for the Zenodo record
@@ -103,13 +105,7 @@ def main():
     # Determine what to download from command line
     download_type = 'full' if args.full else 'light'
 
-    # Download to data directory
-    output_dir = './'
-
-    # Used for progress bar
-    block_size = 1024
-
-    # Grab the urls and filenames and checksums 
+    # Grab the urls and filenames and checksums
     r = requests.get(f"https://zenodo.org/api/records/{record_id}")
     download_urls = [f['links']['self'] for f in r.json()['files']]
     filenames = [(f['key'], f['checksum']) for f in r.json()['files']]
@@ -123,7 +119,7 @@ def main():
             os.makedirs(dir_map[fname])
         except FileExistsError:
             pass
-        full_path = os.path.join(dir_map[fname], fname) 
+        full_path = os.path.join(dir_map[fname], fname)
         if os.path.exists(full_path):
             print(f'Found file {fname}, checking checksum to see if download is required.')
             value, digest = check_hash(full_path, checksum)
@@ -137,6 +133,7 @@ def main():
         if value != digest:
             print("Error: Checksum does not match. Please contact wsavran [at] usc.edu for assistance.")
             sys.exit(-1)
+
 
 if __name__ == "__main__":
     main()
