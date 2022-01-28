@@ -31,22 +31,41 @@ cd pycsep_esrl_reproducibility
 
 The easiest way to run the reproducibility package is to run the 'lightweight' version of the package in an environment provided
 by Docker. You will need to have the Docker runtime environment installed and running on your machine. Some instructions
-can be found [here](https://docs.docker.com/engine/install/). The following commands will not work unless the Docker engine
+can be found [here](https://docs.docker.com/engine/install).
+
+> Note: For best performance on Windows 10/11, Docker should be used with the WSL2 backend instead
+of the legacy Hyper-V backend---provided your hardware supports it. This can be configured in
+Docker's Settings > General > 'Use the WSL 2 based engine'. For more information and how to enable the WSL2 feature
+on your Windows 10/11, see [Docker Desktop WSL 2 backend](https://docs.docker.com/desktop/windows/wsl).
+
+The following commands will not work unless the Docker engine
 is correctly installed on your machine.
 
 
 #### Build the computational enviornment
+
+If on Linux/maxOS, call:
 ```
 ./configure_environment.sh
 ```
+If on Windows, call:
+```
+.\configure_environment.bat
+```
+
 This step does the following things: (1) downloads and verifies the checksum of the downloaded
 data; (2) builds a docker image with the correct computational environemnt; and (3) launches the Docker container to run the plotting
 scripts.
 
-Note: to download the 'full' version run
-```
-./configure_environment.sh --full
-```
+> Note: to download the _'full'_ version, call:
+> ```
+> ./configure_environment.sh --full
+> ```
+> or (if on Windows):
+> ```
+> .\configure_environment.bat --full
+> ```
+
 
 The scripts to reproduce the figures in the manuscript are contained in the `scripts` folder. You should be placed in this
 directory once you start the Docker container.
@@ -96,11 +115,13 @@ Download data from Zenodo
 ```
 ./download_data.sh
 ```
+or (if on Windows):
+```
+.\download_data.bat
+```
 
-Note: to download all of the data run
-```
-./download_data.sh --full
-```
+> Note: to download the _'full'_ version, append ` --full` to the command (see [above](#easy-mode-using-docker))
+
 
 ## Code description
 
