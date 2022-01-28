@@ -134,10 +134,8 @@ To produce all figures from the manuscript that are supported by your downloaded
 python plot_all.py
 ```
 
-Once completed, the figures can be found in the `figures` directory in the top-level:
-```
-cd ../figures
-```
+Once completed, the figures can be found in the `figures` directory in the top-level folder and results in the `results` directory. These can be
+compared against the expected results that are found in the `expected_results` folder.
 
 #### Generate individual figures
 
