@@ -87,7 +87,6 @@ def main():
     ax1 = ca_cat.plot(ax=ax1, plot_args=args_dict)
     ax1.set_title('')
 
-
     args_dict = {
         'basemap': 'ESRI_terrain',
         'grid_labels': True,

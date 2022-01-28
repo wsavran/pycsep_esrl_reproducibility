@@ -1,0 +1,21 @@
+{
+    "min_mw": 4.95,
+    "name": "Paired T-Test",
+    "obs_catalog_repr": "",
+    "obs_name": null,
+    "observed_statistic": -2.001172034473305,
+    "quantile": [
+        -13.450606764202409,
+        2.0422724563012373
+    ],
+    "sim_name": [
+        "EBEL",
+        "helmstetter"
+    ],
+    "status": "normal",
+    "test_distribution": [
+        -2.3050199275811583,
+        -1.6973241413654518
+    ],
+    "type": "EvaluationResult"
+}

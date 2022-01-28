@@ -62,21 +62,35 @@ You will need to have the Docker runtime environment installed and running on yo
 can be found [here](https://docs.docker.com/engine/install/). The following commands will not work unless the Docker engine
 is correctly installed on your machine.
 
+If on Linux/maxOS, call:
 ```
 ./configure_environment.sh
+```
+If on Windows, call:
+```
+.\configure_environment.bat
 ```
 
 This step does the following things: (1) download and verify the checksum of the downloaded
 data; (2) build a docker image with the computational environment; and (3) launch the Docker container.
 
-Note: to download the 'full' version run
-```
-./configure_environment.sh --full
-```
+
+> Note: For best performance on Windows 10/11, Docker should be used with the WSL2 backend instead
+of the legacy Hyper-V backend---provided your hardware supports it. This can be configured in
+Docker's Settings > General > 'Use the WSL 2 based engine'. For more information and how to enable the WSL2 feature
+on your Windows 10/11, see [Docker Desktop WSL 2 backend](https://docs.docker.com/desktop/windows/wsl).
+
+> Note: to download the _'full'_ version, call:
+> ```
+> ./configure_environment.sh --full
+> ```
+> or (if on Windows):
+> ```
+> .\configure_environment.bat --full
+> ```
 
 When finished, Docker launches a new shell within the Docker container.
 Continue with [Run the computational environment](#run-the-computational-environment).
-
 
 #### Using conda environment
 
@@ -88,42 +102,42 @@ conda env create -n pycsep_v051
 conda activate pycsep_v051
 ```
 
-Install v0.5.1 of pyCSEP
+Install v0.5.2 of pyCSEP
 ```
-conda install --channel conda-forge pycsep=0.5.1
+conda install --channel conda-forge pycsep=0.5.2
 ```
 
-Download data of the _'lightweight'_ version from Zenodo with
+Download data from Zenodo
 ```
 ./download_data.sh
 ```
+or (if on Windows):
+```
+.\download_data.bat
+```
 
-Note: to download all of the data run
-```
-./download_data.sh --full
-```
+> Note: to download the _'full'_ version, append ` --full` to the command (see [above](#easy-mode-using-docker))
 
 ### Run the computational environment
 
 The scripts to reproduce the figures in the manuscript are contained in the `scripts` directory; navigate to it using
 ```
-cd scripts
+./start_docker.sh
+python plot_figure2.py
 ```
-
 > Note: Any script must be launched from the `scripts` directory of the reproducibility package.
 
 #### Create all figures
 
 To produce all figures from the manuscript that are supported by your downloaded version (_'lightweight'_ or _'full'_), run:
 ```
-python scripts/plot_all.py
+python plot_all.py
 ```
 
 Once completed, the figures can be found in the `figures` directory in the top-level:
 ```
 cd ../figures
 ```
-
 
 #### Generate individual figures
 
@@ -136,10 +150,8 @@ directory.
 
 ```
 ./start_docker.sh
-cd scripts
 python plot_figure2.py
 ```
-
 
 ## Code description
 
@@ -158,10 +170,8 @@ Descriptions of the files in the `scripts` directory are as follows:
 * `download_data.py`: downloads data from Zenodo (see DOI link at the top)
 
 ## Software versions
-
-`python>=3.7`
-
-`pycsep=0.5.1`
+`python>=3.7`  
+`pycsep=0.5.2`  
 
 ## Computational effort
 

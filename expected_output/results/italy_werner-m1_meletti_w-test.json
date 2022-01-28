@@ -1,0 +1,22 @@
+{
+    "min_mw": 4.95,
+    "name": "W-Test",
+    "obs_catalog_repr": "",
+    "obs_name": null,
+    "observed_statistic": -1.6015894472043857,
+    "quantile": 0.10924642590470221,
+    "sim_name": [
+        "WERNER-M1",
+        "meletti"
+    ],
+    "status": "normal",
+    "test_distribution": [
+        "n",
+        "o",
+        "r",
+        "m",
+        "a",
+        "l"
+    ],
+    "type": "EvaluationResult"
+}

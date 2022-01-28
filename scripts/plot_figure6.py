@@ -1,3 +1,7 @@
+# Python imports
+import json
+import time
+
 # 3rd party impoorts
 import matplotlib.pyplot as plt
 
@@ -81,7 +85,6 @@ def main():
         'xlim': [-0.5, 1.5],
         'xticklabels_rotation': 45
     }
-
     ax1 = plot_comparison_test(california_t_results, california_w_results, plot_args=args, axes=ax1)
 
     # args['ylabel'] = ''
@@ -89,6 +92,25 @@ def main():
     add_labels_for_publication(fig)
     fig.tight_layout()
     fig.savefig('../figures/figure6.png', dpi=300)
+
+    print("Saving evaluation results")
+    for t_res, w_res in zip(california_t_results, california_w_results):
+        fname = f'../results/cali_{t_res.sim_name[0]}_{t_res.sim_name[1]}_{t_res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(t_res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True)
+
+        fname = f'../results/cali_{w_res.sim_name[0]}_{w_res.sim_name[1]}_{w_res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(w_res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True)
+
+    for t_res, w_res in zip(italy_t_results, italy_w_results):
+        fname = f'../results/italy_{t_res.sim_name[0]}_{t_res.sim_name[1]}_{t_res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(t_res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True)
+
+        fname = f'../results/italy_{w_res.sim_name[0]}_{w_res.sim_name[1]}_{w_res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(w_res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True)
 
 
 if __name__ == "__main__":

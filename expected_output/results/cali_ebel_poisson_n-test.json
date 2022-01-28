@@ -1,0 +1,18 @@
+{
+    "min_mw": 4.95,
+    "name": "Poisson N-Test",
+    "obs_catalog_repr": "",
+    "obs_name": null,
+    "observed_statistic": 31,
+    "quantile": [
+        1.0,
+        1.731298484582391e-20
+    ],
+    "sim_name": "EBEL",
+    "status": "normal",
+    "test_distribution": [
+        "poisson",
+        114.74547582535575
+    ],
+    "type": "EvaluationResult"
+}
