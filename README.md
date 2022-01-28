@@ -52,7 +52,7 @@ Now you have two options how to run the package:
 
 The easiest way to run the reproducibility package is to run the _'lightweight'_ version of the package in an environment provided
 by Docker. If you are interested in working with pyCSEP in more detail or running the _'full'_ version of the reproducibility package,
-we recommend that you install pyCSEP (v0.5.1) in a `conda` environment in the native OS.
+we recommend that you install pyCSEP (v0.5.2) in a `conda` environment in the native OS.
 
 For both options we have accompanying scripts that work both under Linux/macOS or Windows.
 
@@ -98,8 +98,8 @@ Installation instructions can be found in the [pyCSEP documentation](https://doc
 
 Create and activate a new conda environment
 ```
-conda env create -n pycsep_v051
-conda activate pycsep_v051
+conda env create -n pycsep_esrl
+conda activate pycsep_esrl
 ```
 
 Install v0.5.2 of pyCSEP
