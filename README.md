@@ -63,7 +63,7 @@ scripts.
 > ```
 > or (if on Windows):
 > ```
-> .\configure_environment.sh --full
+> .\configure_environment.bat --full
 > ```
 
 
