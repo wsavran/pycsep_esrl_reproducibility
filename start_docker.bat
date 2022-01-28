@@ -17,6 +17,7 @@ REM  pycsep_esrl bash
 REM Alternative #2 (passes command to WSL)
 REM wsl docker run -it --rm^
 REM  --mount type=bind,source="$(pwd)"/figures,target=/app/figures^
+REM  --mount type=bind,source="$(pwd)"/results,target=/app/results^
 REM  --mount type=bind,source="$(pwd)"/data,target=/app/data,readonly^
 REM  --mount type=bind,source="$(pwd)"/forecasts,target=/app/forecasts,readonly^
 REM  pycsep_esrl bash
