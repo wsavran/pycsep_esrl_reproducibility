@@ -1,0 +1,22 @@
+{
+    "min_mw": 4.95,
+    "name": "W-Test",
+    "obs_catalog_repr": "",
+    "obs_name": null,
+    "observed_statistic": -3.665081766369295,
+    "quantile": 0.00024725957352100906,
+    "sim_name": [
+        "BIRD_LIU",
+        "helmstetter"
+    ],
+    "status": "normal",
+    "test_distribution": [
+        "n",
+        "o",
+        "r",
+        "m",
+        "a",
+        "l"
+    ],
+    "type": "EvaluationResult"
+}

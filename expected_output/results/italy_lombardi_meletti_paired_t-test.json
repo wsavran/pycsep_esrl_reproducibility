@@ -1,0 +1,21 @@
+{
+    "min_mw": 4.95,
+    "name": "Paired T-Test",
+    "obs_catalog_repr": "",
+    "obs_name": null,
+    "observed_statistic": 0.0792200488643703,
+    "quantile": [
+        0.24603229743716956,
+        2.1603686564610127
+    ],
+    "sim_name": [
+        "LOMBARDI",
+        "meletti"
+    ],
+    "status": "normal",
+    "test_distribution": [
+        -0.6163980155631321,
+        0.7748381132918727
+    ],
+    "type": "EvaluationResult"
+}

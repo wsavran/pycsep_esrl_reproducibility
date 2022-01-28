@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
 # pycsep imports
-from csep import load_catalog_forecast, load_catalog, load_json, load_evaluation_result
+from csep import load_catalog_forecast, load_catalog, load_json
 from csep.models import Event, Polygon
 from csep.core.regions import (
     generate_aftershock_region,
@@ -144,6 +144,13 @@ def main():
     ax = u3etas_forecast.plot(plot_args=plot_args)
     ax = plot_catalog(catalog, plot_args=plot_args, ax=ax)
     ax.get_figure().savefig('../figures/figure5a.png', dpi=300)
+
+    # saving evaluation results
+    with open(f'../results/u3etas_{s_test.name}.json'.replace(" ","_").lower(), 'w') as wf:
+        json.dump(s_test.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True, default=str)
+
+    with open(f'../results/u3etas_{n_test.name}.json'.replace(" ","_").lower(), 'w') as wf:
+        json.dump(n_test.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True, default=str)
 
 if __name__ == "__main__":
     main()

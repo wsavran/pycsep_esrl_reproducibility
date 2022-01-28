@@ -77,7 +77,6 @@ import plot_figure5
 import plot_figure6
 import plot_figure7
 
-
 def verify_file_manifest():
     """ Checks directories for data and forecasts to determine which version of the reproducibility package to run. 
 

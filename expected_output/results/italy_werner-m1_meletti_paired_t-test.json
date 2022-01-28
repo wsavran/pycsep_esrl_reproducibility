@@ -1,0 +1,21 @@
+{
+    "min_mw": 4.95,
+    "name": "Paired T-Test",
+    "obs_catalog_repr": "",
+    "obs_name": null,
+    "observed_statistic": -0.38391043481176734,
+    "quantile": [
+        -1.1347877478932886,
+        2.1603686564610127
+    ],
+    "sim_name": [
+        "WERNER-M1",
+        "meletti"
+    ],
+    "status": "normal",
+    "test_distribution": [
+        -1.1147855009158945,
+        0.3469646312923599
+    ],
+    "type": "EvaluationResult"
+}

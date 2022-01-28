@@ -48,10 +48,8 @@ Note: to download the 'full' version run
 ./configure_environment.sh --full
 ```
 
-The scripts to reproduce the figures in the manuscript are contained in the `scripts` folder. Navigate to this folder using
-```
-cd scripts
-```
+The scripts to reproduce the figures in the manuscript are contained in the `scripts` folder. You should be placed in this
+directory once you start the Docker container.
 
 
 #### Run main script to create all figures
@@ -74,7 +72,6 @@ folder.
 
 ```
 ./start_docker.sh
-cd scripts
 python plot_figure2.py
 ```
 
@@ -90,9 +87,9 @@ conda env create -n pycsep_v051
 conda activate pycsep_v051
 ```
 
-Install v0.5.1 of pyCSEP
+Install v0.5.2 of pyCSEP
 ```
-conda install --channel conda-forge pycsep=0.5.1
+conda install --channel conda-forge pycsep=0.5.2
 ```
 
 Download data from Zenodo
@@ -123,7 +120,7 @@ Descriptions of the files in the ```scripts``` folder are below:
 
 ### Software versions
 `python>=3.7`  
-`pycsep=0.5.1`  
+`pycsep=0.5.2`  
 
 ## Software dependencies
 

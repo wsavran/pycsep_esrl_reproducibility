@@ -1,0 +1,22 @@
+{
+    "min_mw": 4.95,
+    "name": "W-Test",
+    "obs_catalog_repr": "",
+    "obs_name": null,
+    "observed_statistic": -4.841043830445004,
+    "quantile": 1.2915887796454822e-06,
+    "sim_name": [
+        "EBEL",
+        "helmstetter"
+    ],
+    "status": "normal",
+    "test_distribution": [
+        "n",
+        "o",
+        "r",
+        "m",
+        "a",
+        "l"
+    ],
+    "type": "EvaluationResult"
+}

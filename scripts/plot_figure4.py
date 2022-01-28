@@ -1,5 +1,6 @@
 # Python imports
 import time
+import json
 
 # 3rd party impoorts
 import numpy as np
@@ -10,6 +11,7 @@ import cartopy.crs as ccrs
 from csep import load_gridded_forecast, load_catalog
 from csep import poisson_evaluations as poisson
 from csep.utils.plots import plot_poisson_consistency_test, add_labels_for_publication
+from csep.core.repositories import FileSystem
 
 # local imports
 from experiment_utilities import california_experiment, italy_experiment
@@ -55,7 +57,6 @@ def main():
         print(f'Computing S-test results...')
         italy_results.append(poisson.spatial_test(fore, cat, seed=seed, num_simulations=100000))
 
-
     # plotting code below
     fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12,5))
     args = {'title_fontsize': 18,
@@ -80,6 +81,18 @@ def main():
     for res in italy_results:
         print(f'{res.sim_name}: {res.quantile}')
     fig.savefig('../figures/figure4.png', dpi=300)
+
+    print('Saving evaluation results')
+    for res in california_results:
+        fname = f'../results/cali_{res.sim_name}_{res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True, default=str)
+            
+    for res in italy_results:
+        fname = f'../results/italy_{res.sim_name}_{res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True, default=str)
+        
 
 if __name__ == "__main__":
     main()

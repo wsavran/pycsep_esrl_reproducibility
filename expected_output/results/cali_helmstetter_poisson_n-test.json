@@ -1,0 +1,18 @@
+{
+    "min_mw": 4.95,
+    "name": "Poisson N-Test",
+    "obs_catalog_repr": "",
+    "obs_name": null,
+    "observed_statistic": 31,
+    "quantile": [
+        0.7925587037215324,
+        0.26113501112941534
+    ],
+    "sim_name": "HELMSTETTER",
+    "status": "normal",
+    "test_distribution": [
+        "poisson",
+        35.402430726026594
+    ],
+    "type": "EvaluationResult"
+}
