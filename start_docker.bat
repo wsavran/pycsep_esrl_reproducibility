@@ -5,13 +5,14 @@ echo Launching Docker container
 echo ==========================
 docker run -it --rm^
  --mount type=bind,source="%cd%"\figures,target=/app/figures^
+ --mount type=bind,source="%cd%"\results,target=/app/results^
  --mount type=bind,source="%cd%"\data,target=/app/data,readonly^
  --mount type=bind,source="%cd%"\forecasts,target=/app/forecasts,readonly^
  pycsep_esrl bash
 
 REM Alternative #1:
 REM docker run -it --rm^
-REM  -v "%cd%"\figures:/app/figures -v "%cd%"\data:/app/data -v "%cd%"\forecasts:/app/forecasts^
+REM  -v "%cd%"\figures:/app/figures -v "%cd%"\results:/app/results -v "%cd%"\data:/app/data -v "%cd%"\forecasts:/app/forecasts^
 REM  pycsep_esrl bash
 
 REM Alternative #2 (passes command to WSL)

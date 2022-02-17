@@ -17,3 +17,6 @@ echo.
 echo Downloading data from Zenodo
 echo ============================
 python scripts\download_data.py %record_id% %~1
+
+if not exist figures mkdir figures
+if not exist results mkdir results
