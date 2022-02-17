@@ -122,9 +122,9 @@ or (if on Windows):
 
 The scripts to reproduce the figures in the manuscript are contained in the `scripts` directory; navigate to it using
 ```
-./start_docker.sh
-python plot_figure2.py
+cd scripts
 ```
+
 > Note: Any script must be launched from the `scripts` directory of the reproducibility package.
 
 #### Create all figures
@@ -134,8 +134,8 @@ To produce all figures from the manuscript that are supported by your downloaded
 python plot_all.py
 ```
 
-Once completed, the figures can be found in the `figures` directory in the top-level folder and results in the `results` directory. These can be
-compared against the expected results that are found in the `expected_results` folder.
+Once completed, the figures can be found in the `figures` directory in the top-level directory and results in the `results` directory. These can be
+compared against the expected results that are found in the `expected_results` directory.
 
 #### Generate individual figures
 
@@ -147,7 +147,6 @@ Here is an example to recreate Fig. 2 from the manuscript. The commands should b
 directory.
 
 ```
-./start_docker.sh
 python plot_figure2.py
 ```
 
@@ -168,8 +167,8 @@ Descriptions of the files in the `scripts` directory are as follows:
 * `download_data.py`: downloads data from Zenodo (see DOI link at the top)
 
 ## Software versions
-`python>=3.7`  
-`pycsep=0.5.2`  
+* `python>=3.7` 
+* `pycsep=0.5.2`
 
 ## Computational effort
 

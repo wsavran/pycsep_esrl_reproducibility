@@ -10,9 +10,6 @@ fi
 
 # download data from zenodo
 ./download_data.sh $1
-mkdir -p figures
-mkdir -p results
-
 
 # build docker image
 ./build_docker.sh
