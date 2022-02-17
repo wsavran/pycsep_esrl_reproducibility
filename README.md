@@ -167,8 +167,8 @@ Descriptions of the files in the `scripts` directory are as follows:
 * `download_data.py`: downloads data from Zenodo (see DOI link at the top)
 
 ## Software versions
-`python>=3.7`
-`pycsep=0.5.2`
+* `python>=3.7` 
+* `pycsep=0.5.2`
 
 ## Computational effort
 
