@@ -1,7 +1,4 @@
 #! /bin/bash
 
-echo ''
-echo 'Building Docker image'
-echo '====================='
-docker build -t pycsep_esrl .
+docker build --pull --no-cache -t pycsep_esrl .
 

@@ -1,152 +1,116 @@
 # Python imports
-import os
 import json
+import time
 
 # 3rd party impoorts
-import numpy as np
-import cartopy.crs as ccrs
-
 import matplotlib.pyplot as plt
 
 # pycsep imports
-from csep import load_catalog_forecast, load_json
-from csep.models import Event, Polygon
-from csep.core.regions import (
-    magnitude_bins,
-    create_space_magnitude_region,
-    california_relm_region,
-    masked_region
-)
-from csep.core.catalogs import CSEPCatalog
-from csep.core.catalog_evaluations import spatial_test, number_test
-from csep.utils.constants import SECONDS_PER_WEEK
-from csep.utils.plots import plot_number_test, plot_spatial_test, plot_catalog
-from csep.utils.scaling_relationships import WellsAndCoppersmith
-from csep.utils.time_utils import epoch_time_to_utc_datetime, datetime_to_utc_epoch
+from csep import load_gridded_forecast, load_catalog
+from csep import poisson_evaluations as poisson
+from csep.utils.plots import plot_comparison_test, add_labels_for_publication
+
+# local imports
+from experiment_utilities import california_experiment, italy_experiment
 
 
-def sort_by_longitude(coords):
-    return coords[coords[:,0].argsort()]
+def initalize_forecasts(config, **kwargs):
+    """ Initialize forecast using experiment configuration """
+    out = {}
+    for name, path in config.forecasts.items():
+        print(f'Loading {name} forecast...')
+        fore = load_gridded_forecast(path, **kwargs)
+        fore.start_time = config.start_time
+        fore.end_time = config.end_time
+        fore.name = name
+        out[name] = fore
+    return out
 
 
 def main():
 
-    # file-path for results
-    simulation_dir = f'../forecasts'
-    results_dir = f'../data/'
-    ucerf3_raw_data = os.path.join(simulation_dir, 'results_complete.bin.gz')
-    m71_event = os.path.join(simulation_dir, 'm71_event.json')
-    ucerf3_config = os.path.join(simulation_dir, 'config.json')
-    catalog_fname = os.path.join(results_dir, 'evaluation_catalog.json')
+    # evaluate california_experiment using helmstetter as benchmark
+    california_t_results = []
+    california_w_results = []
+    cat = load_catalog(
+        california_experiment.evaluation_catalog,
+        loader=california_experiment.catalog_loader,
+    )
+    print(cat)
 
-    # magnitude range
-    min_mw = 2.5
-    max_mw = 8.95
-    dmw = 0.1
+    # load forecasts and store benchmark forecast
+    ca_fores = initalize_forecasts(california_experiment)
+    benchmark = ca_fores.pop(california_experiment.t_test_benchmark)
 
-    # define start and end epoch of the forecast
-    with open(ucerf3_config, 'r') as config_file:
-        config = json.load(config_file)
-    start_epoch = config['startTimeMillis']
-    end_epoch = start_epoch + SECONDS_PER_WEEK * 1000
+    print(f'Computing t-test results...')
+    for _, fore in ca_fores.items():
+        fore.name = fore.name.upper()
+        california_t_results.append(poisson.paired_t_test(fore, benchmark, cat))
+        california_w_results.append(poisson.w_test(fore, benchmark, cat))
 
-    # number of fault radii to use for spatial filtering
-    num_radii = 3
-
-    # load evaluation catalog
-    catalog = load_json(CSEPCatalog(), catalog_fname)
-
-    # load event
-    event = load_json(Event(), m71_event)
-    event_epoch = datetime_to_utc_epoch(event.time)
-
-    # define region and magnitude space
-    rupture_length = WellsAndCoppersmith.mag_length_strike_slip(event.magnitude) * 1000
-    aftershock_polygon = Polygon.from_great_circle_radius((event.longitude, event.latitude), num_radii*rupture_length, num_points=100)
-    aftershock_region = masked_region(california_relm_region(dh_scale=4, use_midpoint=False), aftershock_polygon)
-
-    mw_bins = magnitude_bins(min_mw, max_mw, dmw)
-    smr = create_space_magnitude_region(aftershock_region, mw_bins)
-
-    # create forecast object
-    filters = [
-        f'origin_time >= {start_epoch}',
-        f'origin_time < {end_epoch}',
-        f'magnitude >= {min_mw}'
-    ]
-
-    print('After filtering observation catalog')
-    catalog = catalog.filter(filters).filter_spatial(region=smr)
-    catalog = catalog.apply_mct(event.magnitude, event_epoch)
-    print(catalog)
-
-    u3etas_forecast = load_catalog_forecast(
-        ucerf3_raw_data,
-        start_time = epoch_time_to_utc_datetime(start_epoch),
-        end_time = epoch_time_to_utc_datetime(end_epoch),
-        region=smr,
-        type='ucerf3',
-        event=event,
-        filters=filters,
-        filter_spatial=True,
-        apply_mct=True,
-        apply_filters=True,
-        store=False
+    # evaluate italy_experiment
+    italy_t_results = []
+    italy_w_results = []
+    cat = load_catalog(
+        italy_experiment.evaluation_catalog,
+        loader=italy_experiment.catalog_loader,
     )
 
-    # evaluate forecasting model
-    print('computing spatial test results')
-    s_test = spatial_test(u3etas_forecast, catalog)
+    # load forecasts and store benchmark forecast
+    ita_fores = initalize_forecasts(italy_experiment, swap_latlon=True)
+    benchmark = ita_fores.pop(italy_experiment.t_test_benchmark)
 
-    print('computing number test results')
-    n_test = number_test(u3etas_forecast, catalog)
+    # italian catalog needs to be filtered in magnitude for 5yr forecasts
+    cat.filter(f'magnitude >= {benchmark.min_magnitude}')
+    print(cat)
 
-    # plot the results
-    ax = plot_number_test(
-        n_test,
-        show=False,
-        plot_args={
-            'title': '',
-            'xlabel_fontsize': 14,
-            'ylabel_fontsize': 14
-        })
-    ax.get_figure().savefig('../figures/figure5b.png', dpi=300)
-    ax = plot_spatial_test(s_test,
-        show=False,
-        plot_args={
-            'title': '',
-            'xlabel_fontsize': 14,
-            'ylabel_fontsize': 14
-        })
-    ax.get_figure().savefig('../figures/figure5c.png', dpi=300)
+    print(f'Computing t-test results...')
+    for _, fore in ita_fores.items():
+        fore.name = fore.name.upper()
+        italy_t_results.append(poisson.paired_t_test(fore, benchmark, cat))
+        italy_w_results.append(poisson.w_test(fore, benchmark, cat))
 
-    # plot forecast
-    plot_args = {
-        'projection': ccrs.Mercator(),
-        'legend': True,
-        'legend_loc': 1,
-        'grid_fontsize': 16,
-        'cmap': 'viridis',
-        'grid_labels': True,
-        'frameon': True,
-        'mag_ticks': [2.5, 3.0, 3.5, 4.0],
-        'markercolor': 'red',
-        'clabel_fontsize': 16,
+    # plotting code below
+    fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12,5))
+    args = {
+        'figsize':(6,8),
+        'xlabel': '',
+        'linewidth': 1.5,
+        'capsize': 0,
         'title': '',
-        'legend_titlesize': 16,
-        'legend_fontsize': 14,
-        'mag_scale': 5
+        'xlabel_fontsize': 12,
+        'ylabel_fontsize': 14,
+        'ylabel': 'Information Gain per Eq.',
+        'markersize': 6,
+        'xlim': [-0.5, 1.5],
+        'xticklabels_rotation': 45
     }
-    ax = u3etas_forecast.plot(plot_args=plot_args)
-    ax = plot_catalog(catalog, plot_args=plot_args, ax=ax)
-    ax.get_figure().savefig('../figures/figure5a.png', dpi=300)
+    ax1 = plot_comparison_test(california_t_results, california_w_results, plot_args=args, axes=ax1)
 
-    # saving evaluation results
-    with open(f'../results/u3etas_{s_test.name}.json'.replace(" ","_").lower(), 'w') as wf:
-        json.dump(s_test.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True, default=str)
+    # args['ylabel'] = ''
+    ax2 = plot_comparison_test(italy_t_results, italy_w_results, plot_args=args, axes=ax2)
+    add_labels_for_publication(fig)
+    fig.tight_layout()
+    fig.savefig('../figures/figure5.png', dpi=300)
 
-    with open(f'../results/u3etas_{n_test.name}.json'.replace(" ","_").lower(), 'w') as wf:
-        json.dump(n_test.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True, default=str)
+    print("Saving evaluation results")
+    for t_res, w_res in zip(california_t_results, california_w_results):
+        fname = f'../results/cali_{t_res.sim_name[0]}_{t_res.sim_name[1]}_{t_res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(t_res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True)
+
+        fname = f'../results/cali_{w_res.sim_name[0]}_{w_res.sim_name[1]}_{w_res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(w_res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True)
+
+    for t_res, w_res in zip(italy_t_results, italy_w_results):
+        fname = f'../results/italy_{t_res.sim_name[0]}_{t_res.sim_name[1]}_{t_res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(t_res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True)
+
+        fname = f'../results/italy_{w_res.sim_name[0]}_{w_res.sim_name[1]}_{w_res.name}.json'.replace(' ','_').lower()
+        with open(fname, 'w') as wf:
+            json.dump(w_res.to_dict(), wf, indent=4, separators=(',', ': '), sort_keys=True)
 
 
 if __name__ == "__main__":
