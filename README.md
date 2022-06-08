@@ -36,7 +36,7 @@ Table of contents
 
 First, open a terminal and download the reproducibility package from github with
 ```
-git clone git@github.com:wsavran/pycsep_esrl_reproducibility.git
+git clone https://github.com/wsavran/pycsep_esrl_reproducibility.git
 ```
 
 Navigate to the newly downloaded directory
