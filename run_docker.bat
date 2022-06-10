@@ -8,8 +8,7 @@ docker run -it --rm^
  --mount type=bind,source="%cd%"\results,target=/app/results^
  --mount type=bind,source="%cd%"\data,target=/app/data,readonly^
  --mount type=bind,source="%cd%"\forecasts,target=/app/forecasts,readonly^
- --entry-point=/bin/bash^
- pycsep_esrl bash
+ pycsep_esrl
 
 REM Alternative #1:
 REM docker run -it --rm^
@@ -22,4 +21,4 @@ REM  --mount type=bind,source="$(pwd)"/figures,target=/app/figures^
 REM  --mount type=bind,source="$(pwd)"/results,target=/app/results^
 REM  --mount type=bind,source="$(pwd)"/data,target=/app/data,readonly^
 REM  --mount type=bind,source="$(pwd)"/forecasts,target=/app/forecasts,readonly^
-REM  pycsep_esrl bash
+REM  pycsep_esrl

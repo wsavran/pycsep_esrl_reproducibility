@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# DO NOT CHANGE THISj
+# DO NOT CHANGE THIS
 record_id=5777992
 
 # usage information
