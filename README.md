@@ -9,10 +9,9 @@ et al., 2021). This reproducibility package provides an introduction to pyCSEP a
 We provide the user with options to download a _full_ or _lightweight_ version of the reproducibility package from Zenodo. The _full_ version of the package recreates Figs. 2‒7 from the manuscript. The lightweight version omits Fig. 3 and Fig. 6, because they require a ~24Gb download for the UCERF3-ETAS forecast, which can take a while (~3h) depending on the connection to Zenodo. These figures also require the most computing time to recreate (see [Computational effort](#computational-effort)).
 
 We recommend that users begin with the _lightweight_ version of the package for a quick introduction to pyCSEP and to use the
-_full_ version to learn about evaluating catalog based forecasts or working with UCERF3-ETAS forecasts. The package is configured to provide turn-key reproducibility of published results. Users can also interact with scripts to individually recreate each figure.
+_full_ version to learn about evaluating catalog based forecasts or working with UCERF3-ETAS forecasts. The package is configured to provide turn-key reproducibility of the published results. Users can also interact with scripts to individually recreate each figure.
 
-Table of contents
-=================
+# Table of contents
 
 * [Instructions for running](#instructions-for-running)
    * [Prepare the computational environment](#prepare-the-computational-environment)
@@ -27,8 +26,10 @@ Table of contents
 * [References](#references)
 
 
-## Instructions for running
-If you have obtained the software from Zenodo, you may skip this step. Make sure that the file contents are extracted. If you are viewing this on GitHub or have not downloaded the code from Zenodo, open a terminal and download the reproducibility package from GitHub with
+# Instructions for running
+If you have obtained the software from Zenodo, you may skip this step. Make sure that the file contents are extracted and navigate to the package directory. 
+
+If you are viewing this on GitHub or have not downloaded the code from Zenodo, open a terminal and download the reproducibility package from GitHub with
 ```
 git clone https://github.com/wsavran/pycsep_esrl_reproducibility.git
 ```
@@ -38,7 +39,7 @@ Navigate to the newly downloaded directory
 cd pycsep_esrl_reproducibility
 ```
 
-### Prepare the computational environment
+## Prepare the computational environment
 
 > Important: Use the Docker instructions to ensure the same computational environment as the publication. The `conda` instructions are useful for users that wish to extend the package or want to work with pyCSEP outside of this context.  
 
@@ -47,12 +48,11 @@ Now you have two options how to run the package:
  * [Using conda environment](#using-conda-environment)
 
 The easiest way to run the reproducibility package is to run the _lightweight_ version of the package in an environment provided
-by Docker. If you are interested in working with pyCSEP in more detail or running the _full_ version of the reproducibility package,
-we recommend that you install pyCSEP (v0.5.2) in a `conda` environment in the native OS.
+by Docker. If you are interested in working with pyCSEP in more detail, we recommend that you install pyCSEP in a `conda` environment in the native OS.
 
 For both options we have accompanying scripts that work both under Linux/macOS or Windows.
 
-#### Easy mode using Docker
+### Easy mode using Docker
 
 You will need to have the Docker runtime environment installed and running on your machine. Some instructions
 can be found [here](https://docs.docker.com/engine/install/). The following commands will not work unless the Docker engine
@@ -89,7 +89,7 @@ When finished, the results and figures will be stored in `./results` and `./figu
 
 The `start_docker.sh` or `start_docker.bat` scripts provide an interactive terminal to re-create individual figures. See [below](#run-the-analysis-scripts) for instructions.
 
-#### Using conda environment
+### Using conda environment
 
 Installation instructions can be found in the [pyCSEP documentation](https://docs.cseptesting.org/getting_started/installing.html). Warning: this method does not ensure a stable computing environment, because `conda` provides the newest packages that are compatible with your environment. Please report any issues related to this [here](https://github.com/SCECcode/pycsep/issues).
 
@@ -115,7 +115,7 @@ or (if on Windows):
 
 > Note: to download the _'full'_ version, append ` --full` to the command (see [above](#easy-mode-using-docker))
 
-### Run the analysis scripts
+## Run the analysis scripts
 
 The scripts to reproduce the figures in the manuscript are contained in the `scripts` directory.
 ```
@@ -125,35 +125,37 @@ cd scripts
 > Note: Any script must be launched from the `scripts` directory of the reproducibility package.
 
 
-#### Create all figures
+### Create all figures
 
 To produce all figures from the manuscript that are supported by your downloaded version (_'lightweight'_ or _'full'_), run:
 ```
 python plot_all.py
 ```
 
+> Note: `plot_all.py` will create all figures if the forecasts and data are available. Follow the instructions below to recreate individual figures.
+
 Once completed, the figures can be found in the `figures` directory in the top-level directory and results in the `results` directory. These can be compared against the expected results that are found in the `expected_results` directory.
 
-#### Generate individual figures
+### Generate individual figures
 
 Individual scripts can be run by replacing `plot_all.py` above with the name of the script you would like to run (e.g., `plot_figure2.py`).
-If you only downloaded the _'lightweight'_ version from Zenodo, you will be unable to run `plot_figure3.py` or `plot_figure5.py`.
+If you only downloaded the _'lightweight'_ version from Zenodo, you will be unable to run `plot_figure3.py` or `plot_figure6.py`.
 
 If data are already downloaded, figures can be run individually by starting the Docker image and executing scripts manually.
-Here is an example to recreate Fig. 2 from the manuscript. The commands should be issued from the `pycsep_esrl_reproducibility`
+Here is an example to recreate Fig. 2 from the manuscript. The commands should be issued from the `scripts`
 directory.
 
 ```
 python plot_figure2.py
 ```
 
-## Code description
+# Code description
 
 The top-level directory contains a few helpful scripts for working with the Docker environment. Descriptions of the files in the top-level directory are as follows (the `.sh` and `.bat` scripts provide the same functionality on different operating systems):
 
 * `build_docker.sh`: rebuilds the Docker image for this environment 
 * `download_data.sh`: downloads and verifies checksums of the data from Zenodo
-* `start_docker.sh`: starts Docker container and provides command-line interface
+* `start_docker.sh`: starts Docker container and provides command-line interface with pycsep environment active
 * `run_docker.sh`: runs the Docker container and automatically launches package
 * `entrypoint.sh`: entrypoint for the runnable Docker container
 
@@ -171,13 +173,13 @@ Descriptions of the files in the `scripts` directory are as follows:
 * `experiment_utilities.py`: functions and configuration needed to run the above scripts
 * `download_data.py`: downloads data from Zenodo (see DOI link at the top)
 
-## Software versions
+# Software versions
 * `python>=3.7` 
 * `pycsep=0.5.2`
 
 To obtain the environment used for publishing this manuscript use [Docker](#easy-mode-using-docker). Advanced users can recreate the environment using `conda` running on Ubuntu 20.04 LTS. 
 
-## Computational effort
+# Computational effort
 
 On a recent (2021) laptop with a 4.6GHz Intel i7, the total runtimes on Windows were as follows:
  * _'lightweight'_ version in Docker and native OS: ~2min
@@ -188,7 +190,7 @@ On a recent (2021) laptop with a 4.6GHz Intel i7, the total runtimes on Windows 
 The Docker environment introduces latency with I/O operations (only noticible when reading the catalog-based UCERF3-ETAS forecast file, and in some computing environments). 
 
 
-## References
+# References
 
 Krafczyk, M. S., Shi, A., Bhaskar, A., Marinov, D., and Stodden, V. (2021).
 Learning from reproducing computational results: introducing three principles and the reproduction package.
