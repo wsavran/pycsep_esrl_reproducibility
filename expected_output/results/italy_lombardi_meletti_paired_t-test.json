@@ -3,9 +3,9 @@
     "name": "Paired T-Test",
     "obs_catalog_repr": "",
     "obs_name": null,
-    "observed_statistic": 0.0792200488643703,
+    "observed_statistic": 0.07922004886437024,
     "quantile": [
-        0.24603229743716956,
+        0.24603229743716937,
         2.1603686564610127
     ],
     "sim_name": [
