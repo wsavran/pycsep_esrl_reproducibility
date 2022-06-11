@@ -17,10 +17,10 @@ if not errorlevel 1 (
 )
 
 :: download data from zenodo
-call ./download_data.bat %~1
+call .\download_data.bat %~1
 
 :: build docker image
-call ./build_docker.bat
+call .\build_docker.bat
 
 :: start docker image with bash shell
-call ./start_docker.bat
+call .\run_docker.bat

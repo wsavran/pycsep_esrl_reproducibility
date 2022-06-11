@@ -15,5 +15,5 @@ fi
 ./build_docker.sh
 
 # start docker image with bash shell
-./start_docker.sh
+./run_docker.sh
 

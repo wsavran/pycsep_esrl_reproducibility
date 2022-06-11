@@ -156,18 +156,20 @@ def main(version):
     print('=================')
     plot_figure4.main()
 
-    if ver == 'full':
-        print('')
-        print('Generating Fig. 5')
-        print('=================')
-        plot_figure5.main()
-    else:
-        print("Skipping Fig. 5. See README for more information.")
 
     print('')
-    print('Generating Fig. 6')
+    print('Generating Fig. 5')
     print('=================')
-    plot_figure6.main()
+    plot_figure5.main()
+    
+    
+    if ver == 'full':
+        print('')
+        print('Generating Fig. 6')
+        print('=================')
+        plot_figure6.main()
+    else:
+        print("Skipping Fig. 6. See README for more information.")
 
     print('')
     print('Generating Fig. 7')

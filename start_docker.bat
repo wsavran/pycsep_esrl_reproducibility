@@ -8,8 +8,8 @@ docker run -it --rm^
  --mount type=bind,source="%cd%"\results,target=/app/results^
  --mount type=bind,source="%cd%"\data,target=/app/data,readonly^
  --mount type=bind,source="%cd%"\forecasts,target=/app/forecasts,readonly^
- --entry-point=/bin/bash^
- pycsep_esrl bash
+ --entrypoint /bin/bash^
+ pycsep_esrl
 
 REM Alternative #1:
 REM docker run -it --rm^
