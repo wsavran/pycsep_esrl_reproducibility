@@ -8,7 +8,6 @@ ARG USER_UID=1100
 ARG USER_GID=$USER_UID
 RUN groupadd -g $USER_GID $USERNAME \
     && useradd -u $USER_UID -g $USER_GID -s /bin/sh -m $USERNAME
-USER $USERNAME
 
 # Register default conda environment
 ENV CONDA_DEFAULT_ENV=$CONDA_ENV
@@ -19,9 +18,10 @@ WORKDIR /app/
 # Add environment files and run scripts to working directory
 # (just in case: convert Windows CRLF line endings to Unix LF, if present)
 COPY --chown=$USER_UID:$USER_GID environment.yml entrypoint.sh ./
-RUN sed -i 's/\r$//' entrypoint.sh
+RUN ["sed", "-i", "s/\r$//", "entrypoint.sh"]
 
 # Create and add to path and add things to shell
+USER $USERNAME
 RUN conda env create -f environment.yml
 ENV PATH ~/envs/$CONDA_ENV/bin:$PATH
 RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
