@@ -14,6 +14,6 @@ fi
 # build docker image
 ./build_docker.sh
 
-# start docker image with bash shell
+# run docker image (automatically executes plot_all.py)
 ./run_docker.sh
 
