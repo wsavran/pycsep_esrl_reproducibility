@@ -148,7 +148,7 @@ The top-level directory contains a few helpful scripts for working with the Dock
 * `build_docker.{sh|bat}`: (re)builds the Docker image for this environment
 * `start_docker.{sh|bat}`: starts Docker container and provides command-line interface with pycsep environment active
 * `run_docker.{sh|bat}`: runs the Docker container and automatically launches the package
-* `entrypoint.{sh|bat}`: entrypoint for the runnable Docker container
+* `entrypoint.sh`: entrypoint for the runnable Docker container
 
 The code to execute the main experiment can be found in the `scripts` directory of this repository. The files are named
 according to the figure they create in the manuscript. The script `plot_all.py` will generate all of the figures supported by the downloaded version.
