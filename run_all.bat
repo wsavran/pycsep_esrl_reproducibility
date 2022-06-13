@@ -22,5 +22,5 @@ call .\download_data.bat %~1
 :: build docker image
 call .\build_docker.bat
 
-:: start docker image with bash shell
+:: run docker image (automatically executes plot_all.py)
 call .\run_docker.bat
