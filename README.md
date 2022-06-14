@@ -86,10 +86,11 @@ of the legacy Hyper-V backend---provided your hardware supports it. This can be 
 Docker's Settings > General > 'Use the WSL 2 based engine'. For more information and how to enable the WSL2 feature
 on your Windows 10/11, see [Docker Desktop WSL 2 backend](https://docs.docker.com/desktop/windows/wsl).
 
+> Note: If you are running Docker on MacOS you might run into permission errors when trying to start (or run) the Docker container. To fix this, manually create the `figures` and `results` directories (eg `cd figures` and `cd results` and add these to the Docker host.)
 
 #### Using a conda environment
 
-Installation instructions can be found in the [pyCSEP documentation](https://docs.cseptesting.org/getting_started/installing.html). Warning: this method does not ensure a stable computing environment, because `conda` provides the newest packages that are compatible with your environment. Please report any issues related to this [here](https://github.com/SCECcode/pycsep/issues).
+Installation instructions can be found in the [pyCSEP documentation](https://docs.cseptesting.org/getting_started/installing.html). **Warning**: this method does not guarantee a stable computing environment, because `conda` provides the newest packages that are compatible with your environment. Please report any issues related to this [here](https://github.com/SCECcode/pycsep/issues).
 
 Create and activate a new conda environment:
 ```
