@@ -6,7 +6,7 @@ ARG CONDA_ENV=pycsep-esrl
 ARG USERNAME=csep-user
 ARG USER_UID=1100
 ARG USER_GID=$USER_UID
-RUN groupadd -g $USER_GID $USERNAME \
+RUN groupadd --non-unique -g $USER_GID $USERNAME \
     && useradd -u $USER_UID -g $USER_GID -s /bin/sh -m $USERNAME
 
 # Register default conda environment

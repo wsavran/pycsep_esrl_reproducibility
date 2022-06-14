@@ -8,6 +8,10 @@ then
     exit /b
 fi
 
+# create necessary folders for the experiment
+mkdir -p figures
+mkdir -p results
+
 # download data from zenodo
 ./download_data.sh $1
 
