@@ -23,3 +23,6 @@ echo 'Downloading data from Zenodo'
 echo '============================'
 python ./scripts/download_data.py $record_id $1
 
+# create necessary folders for the experiment
+mkdir -p figures
+mkdir -p results
